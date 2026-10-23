@@ -64,6 +64,30 @@ def isolate_worker() -> None:
     _worker_job = (api, job)
 
 
+def _process_running(pid: int) -> bool:
+    """Distinguish a running process from a zombie or an already-reaped child.
+
+    ``Process.is_alive()`` can stay true after another thread (the executor
+    manager) has reaped the child: the later ``waitpid`` gets ECHILD and no
+    return code is recorded.  On Linux, inspect the process state so cleanup
+    does not report a zombie as a leaked worker.
+    """
+    try:
+        os.kill(pid, 0)
+    except ProcessLookupError:
+        return False
+    except PermissionError:
+        return True
+    if os.path.isdir("/proc"):
+        try:
+            with open(f"/proc/{pid}/stat", "rb") as handle:
+                fields = handle.read().split()
+        except OSError:
+            return False
+        return len(fields) > 2 and fields[2] != b"Z"
+    return True
+
+
 def abort_pool(executor, error: BaseException, timeout: float = 3.0) -> None:
     """Cancel and kill only this pool, with bounded cleanup and original error intact."""
     # Python 3.11 has no public terminate_workers API. Snapshot the owned handles
@@ -93,7 +117,7 @@ def abort_pool(executor, error: BaseException, timeout: float = 3.0) -> None:
     for worker in workers:
         try:
             worker.join(max(0.0, deadline - time.monotonic()))
-            if worker.is_alive():
+            if worker.is_alive() and _process_running(worker.pid):
                 problems.append(f"evaluation worker {worker.pid} did not exit")
         except (OSError, ValueError) as cleanup_error:
             problems.append(str(cleanup_error))
