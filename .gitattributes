@@ -1,0 +1,36 @@
+# Normalize text in the repository; keep media binary.
+* text=auto eol=lf
+
+*.py text
+*.md text
+*.json text
+*.yml text
+*.yaml text
+*.toml text
+*.ini text
+*.cfg text
+*.txt text
+*.html text
+*.css text
+*.js text
+*.cjs text
+*.svg text
+*.ps1 text eol=crlf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+*.wav binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.pdf binary
+*.zip binary
+*.7z binary
+*.pt binary
+*.pth binary
+*.pkl binary
+*.pkl.gz binary
+*.so binary
+*.pyd binary
+*.dll binary

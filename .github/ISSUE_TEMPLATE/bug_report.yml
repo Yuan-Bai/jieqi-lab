@@ -1,0 +1,87 @@
+name: Bug report
+description: Report a reproducible problem in rules, search, training, GUI, web or tools
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. Please remove models, private replays, paths, tokens and personal
+        data before posting. Security issues should use the private reporting channel described
+        in SECURITY.md instead of a public issue.
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit
+      description: Release tag, commit hash or "main at <date>"
+      placeholder: "0.1.0"
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options:
+        - Windows
+        - Linux
+        - macOS
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: python
+    attributes:
+      label: Python and dependency versions
+      description: Output of `python --version`, plus NumPy/PyTorch versions if relevant
+      placeholder: "Python 3.11.8, NumPy 2.0.2, PyTorch 2.10.0+cpu"
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Rules engine (jieqi.py)
+        - RIS-ISMCTS (ismcts.py)
+        - Training/evaluation (azero.py, tools/)
+        - Web UI (web_server.py, web/)
+        - Tk GUI (gui.py)
+        - Documentation
+        - Build/native extension
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Minimal, deterministic steps; include the command and the position/record if needed
+      placeholder: |
+        1. Run ...
+        2. Click ...
+        3. Observe ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected and actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs
+      description: Paste the smallest useful excerpt; remove absolute paths and private data
+      render: text
+    validations:
+      required: false
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Checklist
+      options:
+        - label: I removed secrets, models, private replays, absolute paths and personal data.
+          required: true
+        - label: I checked the documentation and existing issues first.
+          required: true

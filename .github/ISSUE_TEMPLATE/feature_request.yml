@@ -1,0 +1,48 @@
+name: Feature request
+description: Propose a focused improvement with a clear use case
+title: "[feature] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or use case
+      description: What are you trying to do, and what is missing today?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: Keep the smallest change that solves the use case; note compatibility and hidden-information effects
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+    validations:
+      required: false
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Rules engine
+        - Search and information sets
+        - Training and evaluation
+        - Web UI
+        - Tk GUI
+        - Documentation and tooling
+        - Other
+    validations:
+      required: true
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Checklist
+      options:
+        - label: This request does not require distributing models, training data or private replays.
+          required: true
+        - label: I understand that strength/performance claims need separate evidence and tests.
+          required: true

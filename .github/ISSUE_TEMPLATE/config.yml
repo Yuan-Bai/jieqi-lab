@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Documentation
+    url: https://github.com/Yuan-Bai/jieqi-lab/blob/main/docs/README.md
+    about: Start here for setup, rules, web, GUI, evaluation and release notes.
+  - name: Security report
+    url: https://github.com/Yuan-Bai/jieqi-lab/security/advisories/new
+    about: Report vulnerabilities privately; do not post exploit details in a public issue.

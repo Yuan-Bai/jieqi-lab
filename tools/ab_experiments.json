@@ -1,0 +1,35 @@
+{
+  "note": "Stage 2A / v4 筛选实验：每个 arm 从 v3_iter560.pt 热启动（64 通道旧模型，加载时首层 conv 自动 pad-load 补零）、重放缓冲清空、常量 LR 2.5e-5，保证只变一个因素。默认每 arm 32 轮（约 3.5h）+ 两组评估（约 3h）；可用 --only 分批跑，或调小 iterations/games。注意：2026-09-16 起编码为 71 通道（DATA_VERSION=2），data/selfplay 的 v1 数据被拒绝、各 arm 均从零生成数据；64 vs 71 通道 A/B 需两个代码快照，不在本 runner 内。",
+  "start_model": "data/models/v3_iter560.pt",
+  "iterations": 32,
+  "work_dir": "data/ab",
+  "base_args": [
+    "--no-chance-nodes",
+    "--self-play-games", "64",
+    "--self-play-workers", "8",
+    "--mcts-simulations", "400",
+    "--strong-self-play-interval", "8",
+    "--self-play-log-interval", "8",
+    "--eval-games", "0",
+    "--lr", "2.5e-5",
+    "--lr-schedule", "none",
+    "--train-steps", "1000"
+  ],
+  "arms": [
+    {"name": "control", "args": []},
+    {"name": "leaf-dedup-off", "args": ["--no-leaf-dedup"]},
+    {"name": "pcr-25", "args": ["--pcr", "--pcr-fast-sims", "100", "--pcr-full-prob", "0.25"]},
+    {"name": "pcr-50", "args": ["--pcr", "--pcr-fast-sims", "100", "--pcr-full-prob", "0.5"]},
+    {"name": "chance-full", "args": ["--chance-nodes", "--chance-k", "0"]},
+    {"name": "chance-k4", "args": ["--chance-nodes", "--chance-k", "4"]},
+    {"name": "lr-low-1e-5", "args": ["--lr", "1e-5"]},
+    {"name": "lr-high-5e-5", "args": ["--lr", "5e-5"]},
+    {"name": "buffer-250k", "args": ["--replay-buffer-size", "250000", "--train-steps", "500"]},
+    {"name": "sims800", "args": ["--mcts-simulations", "800", "--strong-mcts-simulations", "3200"]}
+  ],
+  "evals": [
+    {"name": "h2h-v3", "opponents": "model:data/models/v3_iter560.pt:400", "games": 120, "sims": 400, "workers": 8, "chance_nodes": false},
+    {"name": "h2h-v3-s800", "opponents": "model:data/models/v3_iter560.pt:800", "games": 120, "sims": 800, "workers": 8, "chance_nodes": false},
+    {"name": "ris800", "opponents": "ris:800", "games": 100, "sims": 800, "workers": 8, "chance_nodes": false}
+  ]
+}

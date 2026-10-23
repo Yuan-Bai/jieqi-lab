@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "id": "rules5-history-20261022-800",
+  "ruleset_version": 5,
+  "models": [
+    {
+      "path": "../data/eval/opponent_pool_20261022/models/ris_best_iter50.pt",
+      "sha256": "fe0a2c13f7a8123047197b7987dcce76b9b2406e738b6d4c1c9f8868f23dd498",
+      "sims": 800
+    },
+    {
+      "path": "../data/eval/opponent_pool_20261022/models/anchor_iter34.pt",
+      "sha256": "e22f100d118dd584edb84e5c8b02c3fc41ea72b42aafc20bce79bfd3394432d1",
+      "sims": 800
+    },
+    {
+      "path": "../data/eval/opponent_pool_20261022/models/anchor_iter19.pt",
+      "sha256": "419a2b8de2d52f3d1541ad9685e922f595635a57206387f1c9e436daaf1a62b2",
+      "sims": 800
+    }
+  ]
+}

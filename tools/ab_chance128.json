@@ -1,0 +1,43 @@
+{
+  "note": "B 实验（chance-aware 训练对照；Issue 0005 修复后语义）：从 v3_iter560.pt 热启（64 通道旧模型 pad-load 补零）、重放缓冲从零生成、常量 LR 2.5e-5、128 轮后自博弈数据全部为修复后机会节点语义。chance-full-128 为主臂；control-128 为同轮数 off 对照（可选 --only）。评估：内置仅 vs v3_iter560 基线；两臂直接 h2h 训练完后用手工 eval.py 跑。",
+  "start_model": "data/models/v3_iter560.pt",
+  "iterations": 128,
+  "work_dir": "data/ab_chance128",
+  "base_args": [
+    "--no-chance-nodes",
+    "--self-play-games", "64",
+    "--self-play-workers", "8",
+    "--mcts-simulations", "400",
+    "--strong-self-play-interval", "8",
+    "--self-play-log-interval", "8",
+    "--eval-games", "0",
+    "--lr", "2.5e-5",
+    "--lr-schedule", "none",
+    "--train-steps", "1000",
+    "--max-load-files", "32"
+  ],
+  "arms": [
+    {
+      "name": "chance-full-128",
+      "args": [
+        "--chance-nodes",
+        "--chance-k",
+        "0"
+      ]
+    },
+    {
+      "name": "control-128",
+      "args": []
+    }
+  ],
+  "evals": [
+    {
+      "name": "h2h-v3",
+      "opponents": "model:data/models/v3_iter560.pt:400",
+      "games": 120,
+      "sims": 400,
+      "workers": 8,
+      "chance_nodes": false
+    }
+  ]
+}

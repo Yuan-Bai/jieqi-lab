@@ -1,0 +1,81 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyd
+*.so
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+
+# IDE
+.idea/
+.vscode/
+
+# 训练产物（体积大，不入库）
+data/
+*.pkl.gz
+*.pkl
+*.pt
+*.pth
+*.safetensors
+*.onnx
+*.7z
+
+# 本地平台适配模块及专属测试不随开源版本发布
+/ttbot/
+/test_ttbot_state.py
+/test_ttbot_vision.py
+
+# 本地调试截图
+screen_full.png
+
+# Browser verification artifacts
+.playwright-mcp/
+output/playwright/
+
+# Private research caches and local release preparation
+/.tavily/
+/.release-preparation/
+/security_best_practices_report.md
+/output/
+
+# Credentials and local environment files
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Build outputs
+/build/
+/dist/
+*.dll
+*.obj
+*.o
+*.lib
+*.exp
+
+# OS / editor / shell noise
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+*.bak
+*.tmp
+*.orig
+*.rej
+
+# Test and coverage artifacts
+.coverage
+coverage.xml
+htmlcov/
+.ruff_cache/
+.mypy_cache/
+pytest-*.xml
+*.log
+
+# Package managers and archives
+node_modules/
+*.zip

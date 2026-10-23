@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#151c1b">
+  <meta name="description" content="揭棋对弈室：人机对弈、同屏切磋与棋谱研究。">
+  <title>揭棋 · Jieqi Lab</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/preferences.js" defer></script>
+  <script src="/view-state.js" defer></script>
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="揭棋首页"><span class="brand-seal">揭</span><span class="brand-name">揭棋<span>JIEQI LAB</span></span></a>
+    <div class="match-summary"><span id="match-mode-label">对弈室</span><span class="summary-divider">/</span><span id="match-side-label">正在连接</span></div>
+    <nav class="header-shortcuts" aria-label="棋谱与帮助"><button class="header-button" id="import-nav"><i data-icon="book"></i><span>导入棋谱</span></button><button class="header-button" id="rules-nav"><i data-icon="compass"></i><span>玩法指南</span></button></nav>
+    <nav class="header-tools" aria-label="对局操作">
+      <button class="button primary" id="open-new-game"><i data-icon="plus"></i><span>新对局</span></button>
+      <button class="header-button" id="open-settings"><i data-icon="settings"></i><span>设置</span></button>
+      <div class="view-menu-wrapper"><button class="header-button" id="view-options-button" aria-expanded="false" aria-controls="view-options"><i data-icon="sliders"></i><span>显示</span></button>
+        <div class="view-options" id="view-options" role="dialog" aria-label="显示选项" hidden>
+          <h2>按习惯显示</h2><p>吃子记录与行动方始终保留。</p>
+          <span class="menu-group-label">辅助面板</span>
+          <label><span>AI 分析面板</span><input type="checkbox" data-view="analysis" checked></label>
+          <label><span>棋谱与局面</span><input type="checkbox" data-view="record" checked></label>
+          <label><span>引擎运行详情</span><input type="checkbox" data-view="engineDetails"></label>
+          <span class="menu-group-label">棋盘标记</span>
+          <label><span>合法落点</span><input type="checkbox" data-view="legalMoves" checked></label>
+          <label><span>上一着标记</span><input type="checkbox" data-view="lastMove" checked></label>
+          <label><span>棋盘坐标</span><input type="checkbox" data-view="coordinates" checked></label>
+        </div>
+      </div>
+      <span class="header-divider"></span><span class="connection" id="connection" title="本地服务连接状态"><b></b><span>本地引擎</span></span>
+      <div class="sound-menu-wrapper"><button class="icon-button" id="sound-button" title="音效与音量" aria-label="音效与音量" aria-expanded="false" aria-controls="sound-options"><i data-icon="volume"></i></button>
+        <div class="sound-options" id="sound-options" role="dialog" aria-label="音效与音量" hidden><div class="sound-heading"><strong>音效音量</strong><output id="volume-value" for="volume-input">80%</output></div><input id="volume-input" type="range" min="0" max="100" step="1" value="80" aria-label="音效音量"><div class="sound-actions"><button class="text-button" id="sound-toggle" aria-pressed="true">静音</button><button class="text-button" id="sound-preview">试听落子</button></div></div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="workspace"><div class="game-layout">
+    <section class="board-column" aria-label="对弈棋盘">
+      <div class="player-card" id="top-player"></div><div class="player-card" id="bottom-player"></div>
+      <div class="board-stage"><div class="board-frame"><div class="board-inset"><div class="board-surface" id="board" role="group" aria-label="揭棋棋盘，选择棋子后点击落点"><svg class="board-lines" id="board-lines" viewBox="0 0 900 1000" aria-hidden="true"></svg><div class="board-cells" id="board-cells"></div><div class="board-watermark" aria-hidden="true"><span>楚 河</span><span>漢 界</span></div><svg id="hint-arrow" class="hint-arrow" viewBox="0 0 900 1000" aria-hidden="true"></svg></div></div><span class="board-signature">JIEQI · LAB</span></div></div>
+      <div class="board-toolbar">
+        <button class="hint-action" id="hint-button"><i data-icon="bulb"></i><span>AI 提示</span></button><span class="tool-separator"></span>
+        <button id="undo-button"><i data-icon="undo"></i><span>悔棋</span></button><button id="flip-button"><i data-icon="flip"></i><span>翻转</span></button>
+        <button id="pause-button" hidden><i data-icon="pause"></i><span>暂停观棋</span></button><button id="resign-button" class="resign-tool"><i data-icon="flag"></i><span>认输</span></button>
+      </div>
+      <div class="board-footer"><div class="board-message" id="board-message" role="status" aria-live="polite">正在连接本地引擎…</div><div class="board-legend" aria-label="棋盘标记图例"><span><b class="last-key"></b>上一着</span><span><b class="legal-key"></b>合法</span><span><b class="hint-key">↗</b>AI 推荐</span></div></div>
+    </section>
+
+    <section class="panel capture-panel" aria-label="吃子记录（始终显示）">
+      <div class="section-title"><h2><i data-icon="layers"></i>吃子记录</h2><span class="capture-total" id="capture-total">共 0 枚</span></div>
+      <div class="capture-sides">
+        <div class="capture-side red-capture"><div class="capture-side-heading"><span><b class="side-dot red"></b>红方吃子</span><strong id="red-capture-count">0 <small>枚</small></strong></div><div class="captured-pieces" id="red-captures"><span class="capture-empty">尚未吃子</span></div></div>
+        <div class="capture-side black-capture"><div class="capture-side-heading"><span><b class="side-dot black"></b>黑方吃子</span><strong id="black-capture-count">0 <small>枚</small></strong></div><div class="captured-pieces" id="black-captures"><span class="capture-empty">尚未吃子</span></div></div>
+      </div>
+      <div class="latest-capture" id="latest-capture" role="status" aria-live="polite" hidden></div>
+      <p class="privacy-note"><i data-icon="lock"></i>按吃子顺序排列 · 暗子身份按当前视角显示</p>
+    </section>
+
+    <aside class="right-column" aria-label="可选辅助信息">
+      <section class="panel analysis-panel" id="analysis-panel" aria-label="AI 分析">
+        <div class="section-title"><h2><i data-icon="sparkles"></i>AI 分析</h2><button class="icon-button" id="open-analysis-settings" title="分析设置" aria-label="分析设置"><i data-icon="settings"></i></button></div>
+        <div class="evaluation-labels"><span>红方 <strong id="red-evaluation">—</strong></span><span><strong id="black-evaluation">—</strong> 黑方</span></div>
+        <div class="evaluation-bar" id="evaluation-bar" role="img" aria-label="暂无局势评估"><span id="evaluation-fill"></span></div>
+        <p class="analysis-note" id="evaluation-note">点击评估，查看当前局势</p>
+        <div class="analysis-hint" id="analysis-hint" role="status" aria-live="polite"><i data-icon="bulb"></i><span id="hint-description">棋盘下方可获取 AI 提示</span></div>
+        <div class="analysis-actions"><span class="engine-tag" id="analysis-engine-tag">独立分析</span><button class="button secondary" id="evaluate-button"><i data-icon="cpu"></i>评估局势</button></div>
+        <div class="analysis-toggles"><label><input type="checkbox" id="auto-hint">自动提示</label><label><input type="checkbox" id="auto-evaluate">自动评估</label></div>
+        <p class="analysis-error" id="analysis-error" role="status" hidden></p>
+      </section>
+      <div class="engine-status" id="engine-status" hidden><i data-icon="cpu"></i><div><strong id="engine-name">本地引擎</strong><span id="engine-detail"></span></div><button class="text-button" id="retry-button" hidden>重试</button></div>
+    </aside>
+      <section class="panel record-panel" id="record-panel" aria-label="棋谱与局面">
+        <div class="record-tabs" role="tablist" aria-label="对局信息"><button class="selected" id="record-tab" role="tab" aria-selected="true" aria-controls="record-content">棋谱<span id="move-count">0</span></button><button id="position-tab" role="tab" aria-selected="false" aria-controls="position-content">局面</button><button class="icon-button export-button" id="export-button" title="导出棋谱" aria-label="导出棋谱"><i data-icon="download"></i><span id="export-label">导出</span></button></div>
+        <div id="record-content" role="tabpanel" aria-labelledby="record-tab"><div class="record-header"><span>手数</span><span>着法 / 揭示</span><span id="record-state">实时记录</span></div><div class="move-list" id="move-list"></div></div>
+        <div id="position-content" role="tabpanel" aria-labelledby="position-tab" hidden><div class="position-intro">公开局面信息</div><div id="position-stats"></div><div class="draw-progress"><div><span>无吃子计数</span><b id="draw-count">0 / 80</b></div><progress id="draw-progress" max="80" value="0"></progress><p>连续 80 手无吃子判和</p></div></div>
+        <div class="record-navigation"><button class="icon-button" id="first-button" title="回到开局" aria-label="回到开局"><i data-icon="first"></i></button><button class="icon-button" id="prev-button" title="上一步（←）" aria-label="上一步"><i data-icon="chevron-left"></i></button><span id="step-label">第 0 手</span><button class="icon-button" id="next-button" title="下一步（→）" aria-label="下一步"><i data-icon="chevron-right"></i></button><button class="icon-button" id="last-button" title="回到最新局面" aria-label="回到最新局面"><i data-icon="last"></i></button></div>
+        <div id="review-actions" class="review-actions" hidden><button class="button secondary" id="resume-button">返回对局</button><button class="text-button" id="continue-button">从此继续<i data-icon="branch"></i></button></div>
+      </section>
+  </div></main>
+
+  <dialog class="settings-dialog" id="settings-dialog" aria-labelledby="settings-title">
+    <header class="settings-header"><div><h2 id="settings-title">对局设置</h2><p>应用后的参数会自动记住。</p></div><button class="icon-button" id="settings-close" aria-label="关闭设置"><i data-icon="close"></i></button></header>
+    <div class="settings-tabs" role="tablist" aria-label="参数分类"><button id="play-settings-tab" role="tab" aria-selected="true" aria-controls="play-settings-page">对弈与新局</button><button id="analysis-settings-tab" role="tab" aria-selected="false" aria-controls="analysis-settings-page">AI 分析</button></div>
+    <div class="settings-body">
+      <section id="play-settings-page" role="tabpanel" aria-labelledby="play-settings-tab">
+        <fieldset class="mode-picker"><legend>对弈模式</legend>
+          <label class="mode-option"><input type="radio" name="mode" value="human" checked><i data-icon="sparkles"></i><span><strong>人机对弈</strong><small>与引擎过招</small></span><b class="radio-mark"></b></label>
+          <label class="mode-option"><input type="radio" name="mode" value="local"><i data-icon="users"></i><span><strong>好友切磋</strong><small>同屏双人</small></span><b class="radio-mark"></b></label>
+          <label class="mode-option"><input type="radio" name="mode" value="aiai"><i data-icon="eye"></i><span><strong>观棋研习</strong><small>AI 自动对弈</small></span><b class="radio-mark"></b></label>
+        </fieldset>
+        <div id="side-field" class="setting-field"><label>我的执子</label><div class="side-picker"><label><input type="radio" name="side" value="1" checked><span><b class="side-dot red"></b>执红先行</span></label><label><input type="radio" name="side" value="0"><span><b class="side-dot black"></b>执黑后行</span></label></div></div>
+        <div id="engine-fields"><div class="setting-field"><label for="engine-select">对弈引擎</label><select id="engine-select"><option value="ris">RIS-ISMCTS · 纯搜索</option><option value="az">AlphaZero · 神经网络</option></select></div>
+          <div class="setting-field" id="model-field" hidden><label for="model-select">模型权重</label><select id="model-select"></select><small id="model-note"></small></div>
+          <div class="number-fields"><div class="setting-field"><label for="simulations-input">每步模拟次数</label><input id="simulations-input" type="number" min="1" max="100000" step="1" value="64" inputmode="numeric" required></div><div class="setting-field" id="leaf-field" hidden><label for="leaf-batch-input">对弈叶批大小</label><input id="leaf-batch-input" type="number" min="1" max="4096" step="1" value="64" inputmode="numeric" required></div></div>
+          <small id="play-leaf-note" class="field-note" hidden></small><p class="applied-settings" id="applied-settings"></p>
+          <button class="button secondary apply-settings" id="apply-play-settings">应用到当前对局</button>
+        </div>
+        <div class="new-game-row"><span>重新选择模式或执子<br><small>将开启一份新棋谱</small></span><button class="button primary" id="new-game"><i data-icon="plus"></i>开始新对局</button></div>
+      </section>
+      <section id="analysis-settings-page" role="tabpanel" aria-labelledby="analysis-settings-tab" hidden>
+        <p class="settings-explanation">提示与评估使用独立预算，可以和对弈使用不同引擎。</p>
+        <div class="setting-field"><label for="analysis-engine-select">分析引擎</label><select id="analysis-engine-select"><option value="ris">RIS-ISMCTS · 走法提示</option><option value="az">AlphaZero · 提示与评估</option></select></div>
+        <div class="setting-field" id="analysis-model-field" hidden><label for="analysis-model-select">分析模型</label><select id="analysis-model-select"></select></div>
+        <div class="number-fields"><div class="setting-field"><label for="analysis-simulations-input">模拟次数</label><input id="analysis-simulations-input" type="number" min="1" max="100000" step="1" value="200" inputmode="numeric" required></div><div class="setting-field" id="analysis-leaf-field"><label for="analysis-leaf-input">分析叶批大小</label><input id="analysis-leaf-input" type="number" min="1" max="4096" step="1" value="64" inputmode="numeric" required></div></div>
+        <small class="field-note" id="analysis-settings-note"></small><button class="button primary apply-settings" id="apply-analysis-settings">应用分析设置</button>
+      </section>
+    </div>
+    <footer class="settings-footer"><span id="preferences-status"><i data-icon="check"></i>设置保存在此浏览器</span><span>规则 v<span id="rules-version">5</span></span></footer>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <dialog id="modal"><button class="icon-button modal-close" id="modal-close" aria-label="关闭弹窗"><i data-icon="close"></i></button><div id="modal-content"></div></dialog>
+  <input type="file" id="import-file" accept=".json,application/json" hidden>
+  <noscript><p class="noscript">请启用 JavaScript 以使用网页版对弈。</p></noscript>
+</body>
+</html>

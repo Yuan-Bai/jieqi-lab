@@ -1,0 +1,108 @@
+name: Tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tests-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  stdlib-and-web:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Standard-library runtime (site-packages disabled)
+        run: python -S -c "import jieqi, ismcts, game_record, search_engine, web_server; print('RIS/Web imports OK')"
+      - run: python -m pip install 'pytest>=7.4'
+      - run: python -m pytest -q -rs test_jieqi.py test_ismcts.py test_game_record.py test_gui_tasks.py test_web_runtime.py test_web_server.py test_public_examples.py
+      - run: node --check web/app.js
+      - run: node --test web/preferences.test.cjs web/history.test.cjs web/view-state.test.cjs
+
+  python-cpu:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
+    env:
+      CUDA_VISIBLE_DEVICES: '-1'
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.11'
+          cache: pip
+      - run: python -m pip install torch==2.10.0 --index-url https://download.pytorch.org/whl/cpu
+      - run: python -m pip install -r requirements.txt
+      - name: Check resolved dependencies
+        run: python -m pip check
+      - name: Record resolved environment
+        run: |
+          python --version
+          python -m pip freeze
+      - name: Install virtual display for real Tk tests
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb libtk8.6
+      - name: Verify Tk runtime (Linux)
+        if: runner.os == 'Linux'
+        run: python -c "import tkinter; print('Tk', tkinter.TkVersion)"
+      - name: Verify Tk runtime (Windows)
+        if: runner.os == 'Windows'
+        run: python -c "import tkinter; print('Tk', tkinter.TkVersion)"
+      - name: Full CPU suite (Linux)
+        if: runner.os == 'Linux'
+        run: xvfb-run -a python -m pytest -q -rs --junitxml=pytest-cpu.xml
+      - name: Full CPU suite (Windows)
+        if: runner.os == 'Windows'
+        run: python -m pytest -q -rs --junitxml=pytest-cpu.xml
+
+  native-backends:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      CUDA_VISIBLE_DEVICES: '-1'
+      OMP_NUM_THREADS: '1'
+      MKL_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.11'
+          cache: pip
+      - run: python -m pip install torch==2.10.0 --index-url https://download.pytorch.org/whl/cpu
+      - run: python -m pip install -r requirements.txt Cython==3.3.0 setuptools
+      - run: |
+          python -m pip freeze
+          python tools/build_rules.py
+          python tools/build_legal.py
+          python tools/build_search.py
+      - name: Require current binaries (missing extensions must fail)
+        run: python -c "import test_native_rules as r, test_native_legal as l, test_native_search as s; assert r.NATIVE_CURRENT and l.CURRENT and s.CURRENT, 'missing or stale extension'"
+      - run: python -m pytest -q -rs test_native_rules.py test_native_legal.py test_native_search.py test_chance_support.py --junitxml=pytest-native.xml
+      - name: Reject skipped native tests
+        run: python -c "import xml.etree.ElementTree as E; assert not E.parse('pytest-native.xml').findall('.//skipped'), 'native tests skipped'"
