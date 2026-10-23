@@ -220,7 +220,7 @@ def validate_baseline(reference, reference_path):
             or not torch.cuda.is_available()):
         raise ValueError("require identical interpreter/CUDA/backend/precision")
     hashes = dict(reference["source_hashes"])
-    for path in (reference_path, Path(__file__).resolve(), ROOT/"test_benchmark_host_wait.py",
+    for path in (reference_path, Path(__file__).resolve(), ROOT/"tests/test_benchmark_host_wait.py",
                  ROOT/"data/pilots/host_wait_20261009_iter28_protocol.md"):
         hashes[str(path)] = rr.file_record(path)["sha256"]
     return hashes

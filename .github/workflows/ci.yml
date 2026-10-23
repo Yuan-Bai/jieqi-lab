@@ -30,7 +30,7 @@ jobs:
       - name: Standard-library runtime (site-packages disabled)
         run: python -S -c "import jieqi, ismcts, game_record, search_engine, web_server; print('RIS/Web imports OK')"
       - run: python -m pip install 'pytest>=7.4'
-      - run: python -m pytest -q -rs test_jieqi.py test_ismcts.py test_game_record.py test_gui_tasks.py test_web_runtime.py test_web_server.py test_public_examples.py
+      - run: python -m pytest -q -rs tests/test_jieqi.py tests/test_ismcts.py tests/test_game_record.py tests/test_gui_tasks.py tests/test_web_runtime.py tests/test_web_server.py tests/test_public_examples.py
       - run: node --check web/app.js
       - run: node --test web/preferences.test.cjs web/history.test.cjs web/view-state.test.cjs
 
@@ -102,7 +102,7 @@ jobs:
           python tools/build_legal.py
           python tools/build_search.py
       - name: Require current binaries (missing extensions must fail)
-        run: python -c "import test_native_rules as r, test_native_legal as l, test_native_search as s; assert r.NATIVE_CURRENT and l.CURRENT and s.CURRENT, 'missing or stale extension'"
-      - run: python -m pytest -q -rs test_native_rules.py test_native_legal.py test_native_search.py test_chance_support.py --junitxml=pytest-native.xml
+        run: python -c "import sys; sys.path.insert(0, 'tests'); import test_native_rules as r, test_native_legal as l, test_native_search as s; assert r.NATIVE_CURRENT and l.CURRENT and s.CURRENT, 'missing or stale extension'"
+      - run: python -m pytest -q -rs tests/test_native_rules.py tests/test_native_legal.py tests/test_native_search.py tests/test_chance_support.py --junitxml=pytest-native.xml
       - name: Reject skipped native tests
         run: python -c "import xml.etree.ElementTree as E; assert not E.parse('pytest-native.xml').findall('.//skipped'), 'native tests skipped'"

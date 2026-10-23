@@ -23,7 +23,7 @@
 
 新增 [experimental_selector.pyx](../../native/experimental_selector.pyx)、
 [benchmark_exact_selector.py](../../tools/benchmark_exact_selector.py) 和
-[专项测试](../../test_exact_selector_experiment.py)。扩展仅位于
+[专项测试](../../tests/test_exact_selector_experiment.py)。扩展仅位于
 `data/pilots/exact_selector_20261009_iter28_build/lib/`，没有生产加载器。
 `JIEQI_EXPERIMENT_SELECTOR_DIR` 仅用于明确加载编译专测，不是训练开关。
 

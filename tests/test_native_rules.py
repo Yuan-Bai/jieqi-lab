@@ -18,7 +18,7 @@ except ImportError:
 
 PYTHON_ATTACK = jq.GameState._is_square_attacked_python
 NATIVE_CURRENT = native is not None and getattr(native, "SOURCE_SHA256", None) == hashlib.sha256(
-    (Path(__file__).parent / "native/jieqi_rules.pyx").read_bytes()).hexdigest()
+    (Path(__file__).resolve().parents[1] / "native/jieqi_rules.pyx").read_bytes()).hexdigest()
 
 
 def snapshot(state):
@@ -55,7 +55,7 @@ class TestRulesBackendLoading(unittest.TestCase):
                 self.assertIsNone(record)
 
     def test_missing_snapshot_guard_is_rejected_before_installation(self):
-        digest = hashlib.sha256((Path(__file__).parent / "native/jieqi_rules.pyx").read_bytes()).hexdigest()
+        digest = hashlib.sha256((Path(__file__).resolve().parents[1] / "native/jieqi_rules.pyx").read_bytes()).hexdigest()
         fake = types.SimpleNamespace(API_VERSION=1, RULESET_VERSION=jq.RULESET_VERSION,
                                      SOURCE_SHA256=digest)
         attack, guard = jq.GameState.is_square_attacked, jq._immutable_integer_pools

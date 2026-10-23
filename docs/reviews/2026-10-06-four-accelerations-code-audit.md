@@ -26,7 +26,7 @@
 $env:JIEQI_RULES_BACKEND='cython'
 $env:JIEQI_LEGAL_BACKEND='cython'
 $env:JIEQI_SEARCH_BACKEND='python'
-python -m pytest -q test_native_rules.py test_native_legal.py test_selfplay_acceleration.py test_chance_allocation.py test_chance_lazy_sampling.py test_search_reveals.py test_search_information_sets.py test_training_checkpoint.py test_run_records.py
+python -m pytest -q tests/test_native_rules.py tests/test_native_legal.py tests/test_selfplay_acceleration.py tests/test_chance_allocation.py tests/test_chance_lazy_sampling.py tests/test_search_reveals.py tests/test_search_information_sets.py tests/test_training_checkpoint.py tests/test_run_records.py
 ```
 
 结果：107 项通过，58.59 秒。相同后端配置的 `python -m pytest -q` 全量通过：460 项，130.35 秒。

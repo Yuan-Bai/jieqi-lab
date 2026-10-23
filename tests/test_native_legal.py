@@ -17,7 +17,7 @@ from unittest import mock
 import jieqi as jq
 from test_native_rules import snapshot
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parents[1]
 try:
     import _jieqi_legal as native
 except ImportError:

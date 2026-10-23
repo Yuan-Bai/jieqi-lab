@@ -35,7 +35,7 @@ $out='data/pilots/cpu_hotspots_20261008_iter28'
 New-Item -ItemType Directory -Path $out -ErrorAction Stop | Out-Null
 python tools/profile_selfplay.py --run-dir data/train_rules5_20261004 --games 2 --roots-per-game 6 --repeats 2 --workers 8 --parallel-pairs 2 --output "$out/profile.json"
 python tools/profile_search_expansion.py --reference "$out/profile.json" --pairs 4 --output "$out/expansion.json"
-python -m pytest -q test_profile_selfplay.py
+python -m pytest -q tests/test_profile_selfplay.py
 ```
 
 若模型、源码或原生扩展已变，旧 `profile.json` 不可作为第二条命令的参考；重新选择目录并运行完整流程。
@@ -107,7 +107,7 @@ cProfile 相对串行无计时平均耗时增加 58.52%/75.91%；只用于寻找
 
 - 首套 36 个局面/预算条件的原始、cProfile、边界计时及重复搜索保持策略、选着、搜索 RNG、叶计数和机会计数相同；各次搜索输入状态/信念/历史摘要不变。
 - 首套 8-worker 两轮共 72 对原始/边界搜索相同；第二套四轮存储 288 次搜索，全部与首套参考精确相同。
-- 相同后端组合的定向回归 `python -m pytest -q test_profile_selfplay.py`：**8 passed / 6.29s**；没有生产代码改动，不重跑全量训练/棋力验收。
+- 相同后端组合的定向回归 `python -m pytest -q tests/test_profile_selfplay.py`：**8 passed / 6.29s**；没有生产代码改动，不重跑全量训练/棋力验收。
 - 下一项优化需额外验证完整网络输入/输出流、规则/信念状态、动作顺序和整局样本摘要，不能只靠本次策略/RNG检查。
 - 必须保持模拟预算、网络批次/顺序、精度、浮点归约顺序、长将/长捉/重复/无吃子历史、完整机会支持及行动者信息隔离。
 - 当前没有候选实现或新的加速 A/B；没有 1024 局混合预算稳态、连续 CPU 频率/温度、调度/GC、完整 4M 内存峰值、父进程样本 IPC/增强/压缩的分项测量。

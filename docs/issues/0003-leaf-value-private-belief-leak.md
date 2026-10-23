@@ -134,7 +134,7 @@
 - 判别力：把 `NeuralMCTS.search` 源码文本还原为旧语义（每节点重抽、叶用行动方
   私信）后，同一测试在 `trace_a != trace_b` 处失败（验证脚本：`verify_test_discriminates.py`，
   临时目录）。
-- 全量：`pytest test_azero.py test_ismcts.py test_jieqi.py test_eval.py` → 82 passed。
+- 全量：`pytest tests/test_azero.py tests/test_ismcts.py tests/test_jieqi.py tests/test_eval.py` → 82 passed。
 
 回归测试 2：`test_ismcts.py::TestIsmctsRollout::test_ris_ismcts_determinizes_only_root_observer`（纯搜索）。
 

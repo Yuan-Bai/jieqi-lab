@@ -226,7 +226,7 @@ def screen(directory, build_dir, inspection_path, reference_path):
         raise ValueError("require identical current exact reference/runtime/CUDA")
     build = json.loads((build_dir/"build.json").read_text(encoding="utf-8"))
     for path in (inspection_path, reference_path, Path(__file__).resolve(), ROOT/"native/experimental_repetition.pyx",
-                 ROOT/"test_repetition_memo_experiment.py", ROOT/"tools/benchmark_exact_encoder.py",
+                 ROOT/"tests/test_repetition_memo_experiment.py", ROOT/"tools/benchmark_exact_encoder.py",
                  build_dir/"build.json", Path(build["extension"]),
                  ROOT/"data/pilots/repetition_memo_20261009_iter28_protocol.md"):
         hashes[str(path)] = rr.file_record(path)["sha256"]

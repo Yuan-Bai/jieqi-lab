@@ -125,7 +125,7 @@ $env:JIEQI_SEARCH_BACKEND='python'
 $py='<HISTORICAL_PYTHON>'
 & $py tools/benchmark_exact_encoder.py --phase build --output-dir data/pilots/exact_encoder_new_build
 $env:JIEQI_EXPERIMENT_ENCODER_DIR=(Resolve-Path data/pilots/exact_encoder_new_build).Path
-& $py -m pytest -q test_exact_encoder_experiment.py test_encoding_acceleration.py test_rule_history_encoding.py
+& $py -m pytest -q tests/test_exact_encoder_experiment.py tests/test_encoding_acceleration.py tests/test_rule_history_encoding.py
 & $py tools/benchmark_exact_encoder.py --phase screen --output-dir data/pilots/exact_encoder_new_screen --build-dir data/pilots/exact_encoder_new_build --reference-file data/pilots/python_hotspots_20261009_iter28/plain_before/result.json
 ```
 

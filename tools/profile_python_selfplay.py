@@ -174,7 +174,7 @@ def workload(directory, reference_path):
     if (json.loads(json.dumps(runtime_identity())) != reference["identity"] or
             Path(sys.executable).resolve() != Path(reference["python"]).resolve() or not torch.cuda.is_available()):
         raise ValueError("require identical interpreter/CUDA/backend/precision")
-    for path in (reference_path, THIS, ROOT/"test_profile_python_selfplay.py",
+    for path in (reference_path, THIS, ROOT/"tests/test_profile_python_selfplay.py",
                  ROOT/"data/pilots/python_hotspots_20261009_iter28_protocol.md"):
         hashes[str(path)] = rr.file_record(path)["sha256"]
     torch.set_num_threads(1)

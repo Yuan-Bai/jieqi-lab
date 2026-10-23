@@ -37,4 +37,6 @@
 - [tools/README.md](../tools/README.md)：工具分类与副作用边界。
 - [configs/README.md](../configs/README.md)：自建评估池清单格式。
 - [examples/README.md](../examples/README.md)：合成棋谱与生成器。
+- [tests/](../tests/)：规则、搜索、训练、GUI、Web 与原生扩展测试。
+- [pyproject.toml](../pyproject.toml)：pytest 配置（源代码直接运行）。
 - [CONTEXT.md](../CONTEXT.md)：领域术语与关键常量。

@@ -12,7 +12,8 @@ class TestPytestDiscovery(unittest.TestCase):
     def test_data_excluded_without_hiding_project_tests_or_losing_default_exclusions(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
-            shutil.copyfile(Path(__file__).with_name("pytest.ini"), root / "pytest.ini")
+            shutil.copyfile(Path(__file__).resolve().parents[1] / "pyproject.toml",
+                            root / "pyproject.toml")
             for directory in (root, root / "tools"):
                 directory.mkdir(exist_ok=True)
                 (directory / ("test_root.py" if directory == root else "test_tools.py")).write_text(

@@ -32,7 +32,7 @@
 新增 4 项测试，覆盖全部已保存/请求增强开关组合的 FIFO 顺序与随机抽样、批量插入跨越 65,536 边界、成功和失败时的 GC 状态，以及恢复入口/文件进度日志。保留已有 CPU/CUDA 优化器续训和连续训练与重启的逐位等价测试。
 
 ```powershell
-python -m pytest test_training_checkpoint.py test_training_diagnostics.py test_azero.py -q --tb=short
+python -m pytest tests/test_training_checkpoint.py tests/test_training_diagnostics.py tests/test_azero.py -q --tb=short
 ```
 
 结果：**137 passed，33.83 秒**。`git diff --check -- azero.py test_training_checkpoint.py` 通过。未跑全量仓库测试。

@@ -176,7 +176,7 @@ python tools/paired_stats.py <evaluation.jsonl> --seed 2026102201 --bootstrap 20
 ## 验证入口
 
 ```powershell
-python -m pytest test_training_eval_pool.py test_training_checkpoint.py test_eval.py test_eval_process_cleanup.py test_pika_engine.py test_eval_inference_precision.py test_run_records.py test_training_diagnostics.py -q
+python -m pytest tests/test_training_eval_pool.py tests/test_training_checkpoint.py tests/test_eval.py tests/test_eval_process_cleanup.py tests/test_pika_engine.py tests/test_eval_inference_precision.py tests/test_run_records.py tests/test_training_diagnostics.py -q
 ```
 
 测试覆盖双方私有信息边界、FEN 兵种/方向、根合法着约束、协议失败与进程清理、

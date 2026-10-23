@@ -26,7 +26,7 @@ spawn 在 initializer 前导入主模块和 torch，此时 Ctrl+C 可终止 work
 隔离探针使用专门的隐藏控制台，只向该控制台发事件，输出目录必须是新路径。运行时仅标准库；探针/集成测试用可选 psutil，没有时跳过对应测试。
 
 ```powershell
-python -m pytest -q test_training_interrupt.py
+python -m pytest -q tests/test_training_interrupt.py
 python tools/probe_interrupt.py --out data/pilots/interrupt_new_test --scenario startup
 ```
 

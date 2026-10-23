@@ -78,7 +78,7 @@ NeuralMCTS 的先验与叶价值来自合成行动者观测，与训练输入的
 数据另存 `data/eval/information_fix_20261001_world_mismatch.jsonl` 与 `_long.jsonl`，未覆盖旧探针。复现：
 
 ```powershell
-python -m pytest test_search_information_sets.py test_search_reveals.py -q
+python -m pytest tests/test_search_information_sets.py tests/test_search_reveals.py -q
 python tools/audit_information_probe.py
 python tools/probe_world_mismatch.py --mode random,off,on,ris --games 1 --sims 120 --max-plies 40 --model data/models/latest.pt --out data/eval/information_fix_probe.jsonl
 ```

@@ -120,9 +120,9 @@ data/pilots/acceleration_code_audit_20261005_4c039tra/provenance_result.json
 
 后续执行修复，未改变规则、搜索、网络更新或数据生成算法，未重编/覆盖现有扩展。
 
-- F1：新增 `pytest.ini`，在保留 pytest 默认递归排除模式的基础上排除 `data`。
+- F1：新增 pytest 配置（现位于 `pyproject.toml`），在保留 pytest 默认递归排除模式的基础上排除 `data`。
   不移动/删除本地依赖或训练数据，不安装 GDB，默认命令仍为 `python -m pytest -q`。
-  `test_pytest_discovery.py` 复制实际配置到隔离项目，验证 `data/build_deps` 中的 GDB 测试不收集，
+  `tests/test_pytest_discovery.py` 复制实际配置到隔离项目，验证 `data/build_deps` 中的 GDB 测试不收集，
   根目录与 `tools` 的正常测试仍被发现，并保留隐藏目录、build/dist、node_modules、venv 的排除。
 - F2：加载时捕获 `RULES_BACKEND_NATIVE`：实际模块文件绝对路径、SHA256、大小、API/规则版本和源哈希。
   新 manifest 写入 `runtime.rules_backend_native`，`code.files` 同时哈希实际载入文件；外部文件用绝对路径键。

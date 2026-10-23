@@ -2,6 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Tests](https://github.com/Yuan-Bai/jieqi-lab/actions/workflows/ci.yml/badge.svg)](https://github.com/Yuan-Bai/jieqi-lab/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/Yuan-Bai/jieqi-lab)](https://github.com/Yuan-Bai/jieqi-lab/releases)
 
 > 以 MIT License 发布的揭棋 AI 实验工具：Python 规则引擎、RIS-ISMCTS、AlphaZero 风格训练、本地 Web 与 Tk GUI。模型、训练数据及原始实验材料不随仓库分发，历史数字不代表当前棋力。发布与验证流程见 [发布流程](docs/public-release-preparation.md)。
 
@@ -221,6 +222,8 @@ tools/eval.py    配对评估协议（冻结模型池 / 配对 bootstrap / JSONL
 configs/        冻结评估对手清单（权重另存于 data/）
 tools/bench.py   吞吐基准
 merge_selfplay.py  自博弈数据合并工具
+tests/           规则/搜索/训练/GUI/Web/原生扩展测试
+pyproject.toml   pytest 配置（源代码直接运行；打包留待 src/ 布局）
 tools/README.md 工具分类（日常 / 构建 / 验证 / 测量 / 隔离原型 / 历史）
 docs/            文档索引（README.md）、当前状态、加速索引（performance.md）、研究、ADR、审查与历史进度
 CONTEXT.md       领域术语表
@@ -229,7 +232,7 @@ CONTEXT.md       领域术语表
 ## 路线图
 
 - 已完成：搜索/信息边界/编码修复、完整检查点、来源记录、固定整局诊断与精确加速验收；机会节点完整支持和对象按需分配默认开启。测试与性能证据见 [当前状态](docs/status.md)、[加速配置](docs/performance.md)。
-- 发布状态（2026-10-23）：首个公开版本 0.1.0，MIT License；CI 覆盖 Linux/Windows CPU 与 Linux 原生后端；模型与训练数据不随仓库分发。流程见[发布流程](docs/public-release-preparation.md)。
+- 发布状态（2026-10-23）：首个公开版本 [0.1.0](https://github.com/Yuan-Bai/jieqi-lab/releases/tag/v0.1.0)，MIT License；CI 覆盖 Linux/Windows CPU 与 Linux 原生后端；模型与训练数据不随仓库分发。流程见[发布流程](docs/public-release-preparation.md)。
 - 评估功能：冻结历史池、Pika 独立挑战与配对统计已接入，训练默认只报告。2026-10-22 的历史训练快照完成 62 轮、63,968 局，尚未确认全面超越历史模型；模型和原始结果未分发，见[研究总览](docs/research-status.md)。
 - 后续候选：根据新版本证据考虑性能优化、扩网、策略条件后验或教师蒸馏；历史 Gate 与 A/B 留在 `docs/progress.md`，不作为当前配置结论。
 

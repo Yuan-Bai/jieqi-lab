@@ -61,7 +61,7 @@
 结果分别另存 `data/eval/chance_lazy_k{0,1,4}_20261001_world_mismatch.jsonl`。未训练、未覆盖模型/历史数据/训练状态，用户 batch=1024、buffer=4M 保持原值。
 
 ```powershell
-python -m pytest test_chance_lazy_sampling.py test_search_reveals.py -q
+python -m pytest tests/test_chance_lazy_sampling.py tests/test_search_reveals.py -q
 python -m pytest -q
 python tools/audit_information_probe.py
 python tools/probe_world_mismatch.py --mode on --chance-k 1 --games 2 --sims 400 --max-plies 160 --model data/models/latest.pt --out data/eval/chance_lazy_new_probe.jsonl

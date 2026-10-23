@@ -95,7 +95,7 @@ SHA256 为 `a06dc3e2bbc7c612618e881deb550ea8f949c23d0945e458dd72862dc011de82`。
 统计摘要新增配对 bootstrap 区间、五类配对结果及退化样本提示；旧 Wilson 字段
 保留兼容。离线统计的总得分和颜色分层也修正为只使用完整有效配对。
 
-验证：`python -m pytest test_eval.py test_pika_engine.py test_eval_inference_precision.py -q`
+验证：`python -m pytest tests/test_eval.py tests/test_pika_engine.py tests/test_eval_inference_precision.py -q`
 共 **51 passed**。另外完成 4 局 Pika 对随机对手的整局桥接冒烟，Pika 全胜；
 这 4 局没有混入上表 340 局。文件差异空白检查通过。
 
