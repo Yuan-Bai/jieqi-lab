@@ -10,6 +10,8 @@
 - 仓库：<https://github.com/Yuan-Bai/jieqi-lab>
 - 分发范围：284 个源码/文档文件；二进制只有 7 个由 `gui.py` 生成的 WAV 和 2 张界面
   截图（PNG）；不含模型、训练数据、原始评估记录或外部引擎。
+- CI 验证（2026-10-23）：`Tests` 的 `stdlib-and-web`、`python-cpu`（Linux/Windows）
+  和 `native-backends` 全绿；CodeQL 的 Python 与 JavaScript/TypeScript 分析通过。
 
 ## 发布前检查
 
@@ -26,7 +28,7 @@
   包装为当前领先性证据。
 - [x] 在 GitHub 仓库 Settings → Security 启用 Private vulnerability reporting，
   并确认 SECURITY.md 中的报告入口可用。
-- [ ] 首次推送后确认三个 CI job 全绿；远程工作流结果以 Actions 页面为准。
+- [x] 首次推送后确认三个 CI job 全绿；远程工作流结果以 Actions 页面为准。
 
 ## 本地验证
 
