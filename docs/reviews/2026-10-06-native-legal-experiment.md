@@ -152,7 +152,7 @@ Python 时全量 405 项通过，112.39s；强制攻击判定/合法着/节点�
 python tools/build_legal.py
 $env:JIEQI_LEGAL_BACKEND="cython"
 $env:JIEQI_SEARCH_BACKEND="python"
-python -m pytest -q test_native_legal.py
+python -m pytest -q tests/test_native_legal.py
 python tools/benchmark_native_legal.py --pairs 6 --blocks 4 --workers 8 --complete-games 2 --output data/pilots/perf_20261006/native_legal_new.json
 Remove-Item Env:JIEQI_LEGAL_BACKEND
 Remove-Item Env:JIEQI_SEARCH_BACKEND

@@ -140,7 +140,7 @@ effective_epsilon = epsilon / ((1 - epsilon) * Z + epsilon)
 ## 运行证据与复现
 
 ```powershell
-python -m pytest -q test_azero.py -k 'mirror or flip or augment' test_rule_history_encoding.py
+python -m pytest -q tests/test_azero.py -k 'mirror or flip or augment' tests/test_rule_history_encoding.py
 # 15 passed, 80 deselected in 2.19s
 # -k 同时过滤两个文件；完整规则历史测试包含在下面的全量运行中。
 

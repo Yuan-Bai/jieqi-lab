@@ -21,6 +21,7 @@ node --check web/app.js
 node --test web/preferences.test.cjs web/history.test.cjs web/view-state.test.cjs
 ```
 
+测试位于 `tests/`，pytest 配置在 `pyproject.toml`；不要新增根目录 `test_*.py`。
 先运行修改涉及的测试，再运行完整套件。`-rs` 会显示跳过原因；缺少扩展、CUDA、
 Tk 显示环境或 Windows 控制台的跳过，不代表这些功能通过。
 Windows 沙箱可能拒绝硬链接、原子替换或子进程操作，应区分权限问题与真实回归，

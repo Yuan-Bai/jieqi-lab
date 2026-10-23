@@ -61,7 +61,7 @@
 测试命令：
 
 ```powershell
-python -m pytest -q test_chase_symmetry.py test_jieqi.py test_azero.py -k 'chase or root_noise or dirichlet or value_target'
+python -m pytest -q tests/test_chase_symmetry.py tests/test_jieqi.py tests/test_azero.py -k 'chase or root_noise or dirichlet or value_target'
 python tools/audit_augmentation.py
 python -m pytest -q
 ```

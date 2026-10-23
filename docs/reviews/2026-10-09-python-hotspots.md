@@ -128,7 +128,7 @@ inclusive 每样本对同名同文件递归帧去重；匿名/同名函数仍可
 
 ## 产物、复现与检查
 
-工具：[profile_python_selfplay.py](../../tools/profile_python_selfplay.py)，测试：[test_profile_python_selfplay.py](../../test_profile_python_selfplay.py)。
+工具：[profile_python_selfplay.py](../../tools/profile_python_selfplay.py)，测试：[test_profile_python_selfplay.py](../../tests/test_profile_python_selfplay.py)。
 结果：`data/pilots/python_hotspots_20261009_iter28/` 下四组 `result.json`、两份 `*.speedscope.json`、
 两份 `analysis.json`、stdout/stderr、`launch.json`和`summary.json`；兼容性探针在同前缀的 `_probe/` 与相邻原始文件。
 `summary.json`记录各池耗时、覆盖/开销门槛、精确根数、前十集合和分析输入哈希；公式为

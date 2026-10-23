@@ -153,7 +153,7 @@ cProfile 的 `Tensor.cpu()` own time 约占 15%/20%，这包含等待先前 GPU 
 Git 仅提示已有文件的 LF/CRLF 转换。未在本轮重跑强制 Python 的全部旧测试。
 
 ```powershell
-python -m pytest -q test_profile_selfplay.py
+python -m pytest -q tests/test_profile_selfplay.py
 python tools/profile_selfplay.py --games 3 --roots-per-game 6 --repeats 2 --workers 8 --parallel-pairs 2 --output data/pilots/perf_20261005/compiled_multi_profile_new.json
 python tools/profile_search_expansion.py --reference data/pilots/perf_20261005/compiled_multi_profile_new.json --pairs 4 --output data/pilots/perf_20261005/compiled_expansion_profile_new.json
 ```

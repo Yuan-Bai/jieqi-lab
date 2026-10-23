@@ -77,7 +77,7 @@ python -c "import jieqi, azero; print('rules:', jieqi.RULES_BACKEND); print('leg
 python -m pip install --target data/build_deps Cython==3.3.0
 python tools/build_rules.py
 python tools/build_legal.py
-python -m pytest -q test_native_rules.py test_native_legal.py
+python -m pytest -q tests/test_native_rules.py tests/test_native_legal.py
 ```
 
 Windows 需要 Visual C++ 构建工具；其他平台需要适配当前 Python 的 C 编译器。
@@ -135,7 +135,7 @@ Windows 需要 Visual C++ 构建工具；其他平台需要适配当前 Python �
 测试继续保留根目录布局，避免改变 pytest、模块导入和已有复现命令。
 
 ```powershell
-python -m pytest -q test_chance_allocation.py test_chance_lazy_sampling.py test_search_reveals.py test_training_checkpoint.py test_eval.py
+python -m pytest -q tests/test_chance_allocation.py tests/test_chance_lazy_sampling.py tests/test_search_reveals.py tests/test_training_checkpoint.py tests/test_eval.py
 python -m pytest -q
 ```
 

@@ -140,7 +140,7 @@ strong 为 `46df00a04072d81998441c482c2bbf47e5a4e3c7be9759e4deefcd1b9f0de88d`，
 python tools/build_search.py
 $env:JIEQI_SEARCH_BACKEND="cython"
 $env:JIEQI_LEGAL_BACKEND="python"
-python -m pytest -q test_native_search.py
+python -m pytest -q tests/test_native_search.py
 python tools/benchmark_native_search.py --pairs 6 --blocks 4 --workers 8 --complete-games 2 --output data/pilots/perf_20261005/native_search_new.json
 Remove-Item Env:JIEQI_SEARCH_BACKEND
 Remove-Item Env:JIEQI_LEGAL_BACKEND

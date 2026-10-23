@@ -4,7 +4,7 @@
 
 > 用途：本文件是 2026-09-16 对抗式审查的**唯一缺陷记录来源**，供后续修复 agent 逐条处理。
 > 方法：4 路并行子 agent（规则引擎 / 搜索与信念 / 训练评估管线 / 编码与 GUI）+ 主审代码复核 + 独立红队逐条证伪。
-> 基线：`python -m pytest test_azero.py test_ismcts.py test_jieqi.py test_eval.py -q` → **82 passed**（审查时）。
+> 基线：`python -m pytest tests/test_azero.py tests/test_ismcts.py tests/test_jieqi.py tests/test_eval.py -q` → **82 passed**（审查时）。
 > **仓库零改动**：本次审查只读 + 临时探针；本文件是唯一新增产物。工作区原有 R3/R4 未提交改动未被触碰。
 > 探针目录（本机保留）：
 > - `<LOCAL_TEMP>\opencode\rules_probe\`

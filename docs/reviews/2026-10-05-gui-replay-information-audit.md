@@ -63,7 +63,7 @@ GUI 胜率按当前行动方根价值换算，红方行动时 `(1+value)/2`，�
 ## 验证与复现
 
 ```powershell
-python -m pytest -q test_gui.py test_game_record.py test_gui_tasks.py test_search_information_sets.py test_azero.py::TestSearchInformationSafety
+python -m pytest -q tests/test_gui.py tests/test_game_record.py tests/test_gui_tasks.py tests/test_search_information_sets.py tests/test_azero.py::TestSearchInformationSafety
 python tools/probe_gui_replay_privacy.py --replay data/replays/jieqi_20261005_111136.json --model data/train_rules5_20261004/models/latest.pt --sims 800 --seeds 0 1
 ```
 

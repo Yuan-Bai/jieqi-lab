@@ -52,4 +52,4 @@
 - schema version=1 增加可选重放记录字段 `skip_augmented`，默认 0，表示在每局增强后的串接序列中跳过多少条文件前缀。`augmented_count` 仍为完整文件增强条数，用于原校验；有效条数为两者之差，用于清单淘汰和缓冲大小核对。仅扩容迁移时明确记录已有 FIFO 起点，兼容读取原检查点；原始自博弈文件及增强顺序不变。字段是恢复语义的一部分，带此字段的扩容产物应使用支持扩容的代码恢复。
 - 开始新轮次前，原子提交扩容后的轮前检查点，保证第一轮中断也能按新容量正常恢复。来源 manifest 的 parent 记录 `resume_mode=buffer_growth`（同时重置优化器时为 `buffer_growth_reset_optimizer`）、旧/新容量和保留样本数；旧父检查点哈希仍可追溯。固定诊断沿用原数据集和报告，不重新划分。
 - 回归覆盖部分首文件裁剪、未填满时保存/重启、再次扩容、达到容量后正常淘汰、未提交数据隔离、真实 AdamW/调度/RNG 保留、固定诊断、迁移提交失败及后续轮次中断。仅在临时目录运行测试，不迁移生产检查点、不启动主线长训；大容量的内存与棋力收益仍需单独实测。
-- 验证：`python -m pytest test_training_checkpoint.py test_training_diagnostics.py test_run_records.py test_azero.py -q --tb=short` → **167 passed（45.07s）**；Python 编译及 `git diff --check` 通过。Windows 沙箱禁止来源记录的硬链接操作，最终测试在沙箱外使用系统临时目录执行；未运行全量仓库测试。
+- 验证：`python -m pytest tests/test_training_checkpoint.py tests/test_training_diagnostics.py tests/test_run_records.py tests/test_azero.py -q --tb=short` → **167 passed（45.07s）**；Python 编译及 `git diff --check` 通过。Windows 沙箱禁止来源记录的硬链接操作，最终测试在沙箱外使用系统临时目录执行；未运行全量仓库测试。

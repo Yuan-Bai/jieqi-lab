@@ -2,6 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Tests](https://github.com/Yuan-Bai/jieqi-lab/actions/workflows/ci.yml/badge.svg)](https://github.com/Yuan-Bai/jieqi-lab/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/Yuan-Bai/jieqi-lab)](https://github.com/Yuan-Bai/jieqi-lab/releases)
 
 > An MIT-licensed toolkit for Jieqi (Chinese chess with hidden pieces): a Python rules engine,
 > RIS-ISMCTS search, AlphaZero-style self-play training, a local browser UI, and a Tkinter GUI.

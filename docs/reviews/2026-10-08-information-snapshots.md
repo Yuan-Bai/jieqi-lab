@@ -128,7 +128,7 @@ $env:JIEQI_RULES_BACKEND='cython'
 $env:JIEQI_LEGAL_BACKEND='cython'
 $env:JIEQI_SEARCH_BACKEND='python'
 python tools/benchmark_information_snapshots.py --run-dir data/pilots/chance_support_20261008_iter28/frozen_inputs --before data/pilots/information_snapshots_20261008_iter28/before --fixtures data/pilots/chance_support_20261008_iter28/measure.fixtures.pkl --output data/pilots/information_snapshots_20261008_iter28/recheck.json --seed-offset 10000 --workers 8 --search-rounds 8 --game-rounds 6 --games-per-round 16
-python -m pytest -q test_information_snapshots.py test_search_information_sets.py test_search_reveals.py test_chance_support.py test_chance_allocation.py
+python -m pytest -q tests/test_information_snapshots.py tests/test_search_information_sets.py tests/test_search_reveals.py tests/test_chance_support.py tests/test_chance_allocation.py
 ```
 
 仅加载本机可信fixture pickle；旧来源快照、冻结输入与本机有效二进制是复现条件，

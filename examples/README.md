@@ -10,7 +10,7 @@
 ```powershell
 # 默认打印 JSON；写文件时要求目标不存在，避免覆盖已有棋谱。
 python tools/generate_example_record.py --out synthetic-copy.json
-python -m pytest -q test_public_examples.py
+python -m pytest -q tests/test_public_examples.py
 ```
 
 修改示例应先修改 [生成器](../tools/generate_example_record.py)，再生成新文件与候选比较。

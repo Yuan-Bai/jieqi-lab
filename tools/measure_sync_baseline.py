@@ -233,7 +233,7 @@ def main():
         parser.error("cannot confirm WPR is not recording")
     torch.set_num_threads(1)
     hashes = dict(reference["source_hashes"])
-    for path in (reference_path, Path(__file__).resolve(), ROOT/"test_measure_sync_baseline.py"):
+    for path in (reference_path, Path(__file__).resolve(), ROOT/"tests/test_measure_sync_baseline.py"):
         hashes[str(path)] = rr.file_record(path)["sha256"]
     checkpoint = torch.load(source/"models/training_checkpoint.pt", map_location="cpu", weights_only=True)
     verify_hashes(hashes)

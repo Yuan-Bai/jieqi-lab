@@ -253,7 +253,7 @@ def screen(directory, build_dir, reference_path):
         raise ValueError("require identical interpreter/CUDA/backend/precision")
     build = json.loads((build_dir/"build.json").read_text(encoding="utf-8"))
     for path in (reference_path, Path(__file__).resolve(), ROOT/"native/experimental_encoder.pyx",
-                 ROOT/"test_exact_encoder_experiment.py", build_dir/"build.json", Path(build["extension"]),
+                 ROOT/"tests/test_exact_encoder_experiment.py", build_dir/"build.json", Path(build["extension"]),
                  ROOT/"data/pilots/exact_encoder_20261009_iter28_protocol.md"):
         hashes[str(path)] = rr.file_record(path)["sha256"]
     encoder = load_encoder(build_dir)

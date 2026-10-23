@@ -25,7 +25,7 @@
 现有特征LRU按元组值查表，需要元组哈希；候选尝试按已确认不可变的同一个元组对象复用派生数据。
 
 工具：[measure_repetition_preparation.py](../../tools/measure_repetition_preparation.py)，
-[测量测试](../../test_measure_repetition_preparation.py)。这里只做影子统计，仍由原函数返回全部结果。
+[测量测试](../../tests/test_measure_repetition_preparation.py)。这里只做影子统计，仍由原函数返回全部结果。
 每个根重新建立固定4096项FIFO，强引用棋盘并核对身份，统计原历史键请求、物料过滤和转换资格。
 不是网络缓存、相同局面的搜索统计合并，也不缓存可变信息态或整份历史条目。
 
@@ -62,7 +62,7 @@
 
 新增 [experimental_repetition.pyx](../../native/experimental_repetition.pyx)、
 [benchmark_repetition_memo.py](../../tools/benchmark_repetition_memo.py)、
-[原型测试](../../test_repetition_memo_experiment.py)，没有生产加载器。
+[原型测试](../../tests/test_repetition_memo_experiment.py)，没有生产加载器。
 扩展只生成到 `data/pilots/repetition_memo_20261009_iter28_build/lib/`，不替换根目录已有pyd。
 `JIEQI_EXPERIMENT_REPETITION_DIR` 仅用于编译专测，不是训练开关。
 

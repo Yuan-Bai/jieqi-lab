@@ -47,7 +47,7 @@ if max_files > 0 and len(files) > max_files:
 
 - 新增 3 个单测（`test_azero.py`）：容量自适应保留最新、augment 预算 ×2、
   `max_files>0` 旧语义回归（含"旧语义下加载数可超容量"断言）。
-- 全量：`python -m pytest test_azero.py test_eval.py test_ismcts.py test_jieqi.py -q`
+- 全量：`python -m pytest tests/test_azero.py tests/test_eval.py tests/test_ismcts.py tests/test_jieqi.py -q`
   → **136 passed**。
 - 真实数据验收（`data/ab_short/control/selfplay`，64 文件）：
   - `capacity=1_000_000, augment=True, ruleset_version=3` → **loaded == 512,920

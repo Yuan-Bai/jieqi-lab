@@ -183,8 +183,8 @@ BF16/禁用TF32初筛配方：`--modes baseline tf32 amp_fp16 amp_bf16 ieee_fp32
 独立微测复核配方：`--modes baseline tf32 amp_fp16 --micro-rounds 6 --micro-repeats 20 --search-rounds 0 --game-rounds 0 --workers 8`；workers在此不创建池，只复查单worker路径。
 初筛旧工具还没有后加的14根重复控制；其源码哈希与副本一起保留，不冒充完全相同版本。
 
-测试：`python -m pytest -q test_inference_precision.py`，当前 **8 passed**。
-最终联合定向回归：`python -m pytest -q test_inference_precision.py test_selfplay_acceleration.py`，**15 passed / 7.07s**；未重跑全量测试。
+测试：`python -m pytest -q tests/test_inference_precision.py`，当前 **8 passed**。
+最终联合定向回归：`python -m pytest -q tests/test_inference_precision.py tests/test_selfplay_acceleration.py`，**15 passed / 7.07s**；未重跑全量测试。
 长测所有22个受保护文件哈希不变，包括核心源码、已加载原生二进制、冻结输入和5个生产产物及用户分析文件；主线仍完成28轮。
 三次输出/源码快照共66次哈希复核全部通过；初筛快照与后两次加入控制组的快照分别按各自产物记录校验。
 本轮不改运行算法、生产参数或checkpoint版本；新增独立工具/测试和报告，不提交Git。

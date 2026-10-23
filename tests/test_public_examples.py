@@ -9,7 +9,7 @@ from web_server import WebGame
 
 
 def test_public_example_matches_generator_and_roundtrips():
-    path = Path(__file__).parent / "examples/synthetic-branches.json"
+    path = Path(__file__).resolve().parents[1] / "examples/synthetic-branches.json"
     payload = json.loads(path.read_text(encoding="utf-8"))
     assert payload == build_example().to_dict()
     restored = GameRecord.from_dict(payload)

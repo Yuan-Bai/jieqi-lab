@@ -210,7 +210,7 @@ Web 适配器在每次任务开始时设置叶批，同 GUI 的调用方式一�
 ## 验证
 
 ```powershell
-python -m pytest -q test_web_runtime.py test_web_server.py test_game_record.py test_gui_tasks.py test_gui.py test_jieqi.py test_ismcts.py
+python -m pytest -q tests/test_web_runtime.py tests/test_web_server.py tests/test_game_record.py tests/test_gui_tasks.py tests/test_gui.py tests/test_jieqi.py tests/test_ismcts.py
 node --check web/app.js
 node --test web/preferences.test.cjs
 node --test web/history.test.cjs

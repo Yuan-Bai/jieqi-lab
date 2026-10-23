@@ -104,7 +104,7 @@ GUI 自动对规则 v3/v4 的 v1/v2 棋谱执行内存迁移：每条边按 v5 �
 ## 验证
 
 ```powershell
-python -m pytest -q test_game_record.py test_gui_tasks.py test_gui.py
+python -m pytest -q tests/test_game_record.py tests/test_gui_tasks.py tests/test_gui.py
 python -m pytest -q
 python gui.py
 ```

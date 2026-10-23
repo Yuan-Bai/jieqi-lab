@@ -191,7 +191,7 @@ def run(directory, reference_path):
     if (json.loads(json.dumps(runtime_identity())) != reference["identity"] or
             Path(sys.executable).resolve() != Path(reference["python"]).resolve() or not torch.cuda.is_available()):
         raise ValueError("require identical interpreter/CUDA/backend/precision")
-    for path in (reference_path, Path(__file__).resolve(), ROOT/"test_measure_repetition_preparation.py",
+    for path in (reference_path, Path(__file__).resolve(), ROOT/"tests/test_measure_repetition_preparation.py",
                  ROOT/"data/pilots/repetition_preparation_20261009_iter28_protocol.md"):
         hashes[str(path)] = rr.file_record(path)["sha256"]
     source = ROOT/"data/pilots/chance_support_20261008_iter28/frozen_inputs"
