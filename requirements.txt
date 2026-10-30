@@ -1,9 +1,9 @@
 # 运行时依赖（Python 3.11+）
 # 规则引擎 / RIS-ISMCTS 仅用标准库；训练与神经网络需要以下依赖。
-numpy>=1.26
+numpy>=2.5.4
 # weights_only loader fixes: GHSA-63cw-57p8-fm3p (see SECURITY.md).
-torch>=2.10
+torch>=2.14.1
 
 # 开发/测试与性能测量
-pytest>=7.4
-psutil>=5.9
+pytest>=9.1.1
+psutil>=7.2.2
